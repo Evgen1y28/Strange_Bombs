@@ -4,12 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StangeBombs
+
+
+namespace ModuleTwo
 {
-    class Program
+    public class ModuleTwoInvoker:IModuleTwoInvoker
+
     {
-        static void Main(string[] args)
+        public ModuleTwoInvoker()
         {
+            _fileSaverService = new FileSaverService( );
+        }
+
+        private IFileSaverService _fileSaverService { get; }
+        public bool SaveFile(string content, string location, string fileName )
+        {
+            var result = false;
+            result = _fileSaverService.SaveFile(content, location, fileName);
+            return result; 
+        }
+
+        internal class Program
+        {
+
+            private static void Main(string[] args)
+            {
+                IModuleTwoInvoker invoker = new ModuleTwoInvoker();
+                invoker.SaveFile();               
+                Console.ReadLine();
+
+            }
         }
     }
 }
