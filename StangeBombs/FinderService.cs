@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace StangeBombs
 {
@@ -15,7 +16,22 @@ namespace StangeBombs
     {
         public string FindFile(string locationToSearch, string fileName)
         {
-            //your code here
+            string result = string.Empty;
+            string[] fileEntries = Directory.GetFiles(locationToSearch);
+            foreach (string file in fileEntries)
+            {
+                if (file.Contains(fileName))
+                {
+                    result = fileName;
+                    return result;
+                }
+            }
+
+            string[] subdirectoryEntries = Directory.GetDirectories(locationToSearch);
+            foreach (string subdirectory in subdirectoryEntries)
+                FindFile(subdirectory, fileName);
+            return result;
         }
+
     }
 }
