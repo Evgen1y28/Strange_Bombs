@@ -23,7 +23,6 @@ namespace StangeBombs
                {
                     result = sr.ReadToEnd();
                }
-           
 
             return result;
         }
