@@ -17,21 +17,15 @@ namespace StangeBombs
     {
         public string GetFileContent(string location, string fileName)
         {
-            try
-            {
-                fileName = String.Empty;
+           string result = String.Empty;
+                
                using (StreamReader sr = new StreamReader(location))
                {
-                    fileName = sr.ReadToEnd();
+                    result = sr.ReadToEnd();
                }
-            }
-            
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+           
 
-            return fileName;
+            return result;
         }
     }
 }
