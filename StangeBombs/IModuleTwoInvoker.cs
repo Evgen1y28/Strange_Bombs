@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModuleTwo
+namespace StangeBombs
 {
     public interface IModuleTwoInvoker
     {
-        bool SaveFile(string content,string location, string fileName);
+        string FindFile(string locationToSearch, string fileName);
+
+        string GetFileContent(string location, string fileName);
+
+        bool SaveFile(string content, string lcoation, string fileName);
     }
 }
