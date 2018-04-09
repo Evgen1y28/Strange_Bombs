@@ -27,9 +27,17 @@ namespace StangeBombs
             {
                 result = _finderService.FindFile(locationToSearch, fileName);
             }
-            catch (Exception e)
+            catch (NullReferenceException)
             {
-                // your code here
+                Console.WriteLine("Please fill all fields next time");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                ;
+            }
+            catch (Exception)
+            {
+                ;
             }
 
             return result;

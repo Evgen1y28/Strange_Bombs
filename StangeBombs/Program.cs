@@ -6,34 +6,27 @@ using System.Threading.Tasks;
 
 
 
-namespace ModuleTwo
+namespace StangeBombs
 {
-    public class ModuleTwoInvoker:IModuleTwoInvoker
 
+    class Program
     {
-        public ModuleTwoInvoker()
+
+        public static void Main(string[] args)
         {
-            _fileSaverService = new FileSaverService( );
-        }
+            Console.Write("Please enter the directory where is the file (like D:'\' ):");
+            string path = Console.ReadLine();
+            Console.Write("Please enter the file name (like vunshpunsh.txt):");
+            string name = Console.ReadLine();
 
-        private IFileSaverService _fileSaverService { get; }
-        public bool SaveFile(string content, string location, string fileName )
-        {
-            var result = false;
-            result = _fileSaverService.SaveFile(content, location, fileName);
-            return result; 
-        }
+            ModuleTwoInvoker prog = new ModuleTwoInvoker();
+            string findFile = prog.FindFile(path, name);
+            string getFile = prog.GetFileContent(findFile, name);
+            bool saveFile = prog.SaveFile(getFile, path, name);
 
-        internal class Program
-        {
+            Console.ReadLine();
 
-            private static void Main(string[] args)
-            {
-                IModuleTwoInvoker invoker = new ModuleTwoInvoker();
-                invoker.SaveFile();               
-                Console.ReadLine();
-
-            }
         }
     }
+
 }
