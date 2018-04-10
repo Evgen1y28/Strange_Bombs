@@ -22,6 +22,10 @@ namespace StangeBombs
                using (StreamReader sr = new StreamReader(location))
                {
                     result = sr.ReadToEnd();
+                if (!File.Exists(location))
+                {
+                    fileName = File.ReadAllText(location);
+                }
                }
 
             return result;

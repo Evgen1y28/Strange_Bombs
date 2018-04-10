@@ -13,6 +13,7 @@ namespace StangeBombs
 
     public class FinderService : IFinderService
     {
+
         public string FindFile(string locationToSearch, string fileName)
         {
             string result = string.Empty;
@@ -21,14 +22,20 @@ namespace StangeBombs
             {
                 if (file.Contains(fileName))
                 {
-                    result = fileName;
+                    result = file;
                     return result;
                 }
             }
-
             string[] subdirectoryEntries = Directory.GetDirectories(locationToSearch);
-            foreach (string subdirectory in subdirectoryEntries)
-                FindFile(subdirectory, fileName);
+                foreach (string subdirectory in subdirectoryEntries)
+                {
+                    string file = FindFile(subdirectory, fileName);
+                    if (file.Contains(fileName))
+                    {
+                        result = file;
+                        return result;
+                    }
+                }
             return result;
         }
     }
