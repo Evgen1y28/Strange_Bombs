@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+
 namespace StangeBombs
 {
     public interface IFinderService
@@ -16,7 +17,13 @@ namespace StangeBombs
 
         public string FindFile(string locationToSearch, string fileName)
         {
+            if (!locationToSearch.EndsWith("\\"))
+            {
+                locationToSearch += '\\';
+            }
+
             string result = string.Empty;
+            
             string[] fileEntries = Directory.GetFiles(locationToSearch);
             foreach (string file in fileEntries)
             {
@@ -27,16 +34,22 @@ namespace StangeBombs
                 }
             }
             string[] subdirectoryEntries = Directory.GetDirectories(locationToSearch);
-                foreach (string subdirectory in subdirectoryEntries)
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                if (subdirectory.Contains("System"))
                 {
-                    string file = FindFile(subdirectory, fileName);
-                    if (file.Contains(fileName))
-                    {
-                        result = file;
-                        return result;
-                    }
+                    continue;
                 }
+                string file = FindFile(subdirectory, fileName);
+                if (file.Contains(fileName))
+                {
+                    result = file;
+                    return result;
+                }
+            }
             return result;
         }
+       
+
     }
 }
