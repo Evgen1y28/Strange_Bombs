@@ -22,7 +22,7 @@ namespace StangeBombs
             ModuleTwoInvoker prog = new ModuleTwoInvoker();
             string findFile = prog.FindFile(path, name);
             string getFile = prog.GetFileContent(findFile, name);
-            bool saveFile = prog.SaveFile(getFile, path, name);
+            bool saveFile = prog.SaveFile(getFile, findFile, name);
 
             Console.ReadLine();
 

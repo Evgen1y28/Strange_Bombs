@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace StangeBombs
             {
                 if (file.Contains(fileName))
                 {
-                    result = fileName;
+                    result = file;
+                    locationToSearch = result;
                     return result;
                 }
             }
