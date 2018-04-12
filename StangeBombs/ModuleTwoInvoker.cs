@@ -15,9 +15,9 @@ namespace StangeBombs
             _fileSaverService = new FileSaverService();
         }
 
-        private IFinderService _finderService { get; }
-        private IFileReaderService _fileReaderService { get; }
-        private IFileSaverService _fileSaverService { get; }
+        private FinderService _finderService { get; }
+        private FileReaderService _fileReaderService { get; }
+        private FileSaverService _fileSaverService { get; }
 
         public string FindFile(string locationToSearch, string fileName)
         {
@@ -39,7 +39,6 @@ namespace StangeBombs
             {
                 ;
             }
-
             return result;
         }
 

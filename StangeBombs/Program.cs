@@ -14,7 +14,7 @@ namespace StangeBombs
 
         public static void Main(string[] args)
         {
-            Console.Write("Please enter the directory where is the file (like D:'\' ):");
+            Console.Write("Please enter the directory where is the file (like D:\\ ):");
             string path = Console.ReadLine();
             Console.Write("Please enter the file name (like vunshpunsh.txt):");
             string name = Console.ReadLine();
