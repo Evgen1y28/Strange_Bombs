@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Security.AccessControl;
 
 namespace StangeBombs
 {
@@ -23,7 +24,7 @@ namespace StangeBombs
             }
 
             string result = string.Empty;
-            
+
             string[] fileEntries = Directory.GetFiles(locationToSearch);
             foreach (string file in fileEntries)
             {
@@ -36,15 +37,15 @@ namespace StangeBombs
             string[] subdirectoryEntries = Directory.GetDirectories(locationToSearch);
             foreach (string subdirectory in subdirectoryEntries)
             {
-                if (subdirectory.Contains("System"))
+                var subDirs = Directory.GetAccessControl(subdirectory);
+                if (!subDirs.AreAccessRulesProtected)
                 {
-                    continue;
-                }
-                string file = FindFile(subdirectory, fileName);
-                if (file.Contains(fileName))
-                {
-                    result = file;
-                    return result;
+                    string file = FindFile(subdirectory, fileName);
+                    if (file.Contains(fileName))
+                    {
+                        result = file;
+                        return result;
+                    }
                 }
             }
             return result;
