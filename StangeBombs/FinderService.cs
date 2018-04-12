@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace StangeBombs
 {
@@ -14,24 +14,42 @@ namespace StangeBombs
 
     public class FinderService : IFinderService
     {
+
         public string FindFile(string locationToSearch, string fileName)
         {
+            if (!locationToSearch.EndsWith("\\"))
+            {
+                locationToSearch += '\\';
+            }
+
             string result = string.Empty;
+            
             string[] fileEntries = Directory.GetFiles(locationToSearch);
             foreach (string file in fileEntries)
             {
                 if (file.Contains(fileName))
                 {
                     result = file;
-                    locationToSearch = result;
                     return result;
                 }
             }
-
             string[] subdirectoryEntries = Directory.GetDirectories(locationToSearch);
             foreach (string subdirectory in subdirectoryEntries)
-                FindFile(subdirectory, fileName);
+            {
+                if (subdirectory.Contains("System"))
+                {
+                    continue;
+                }
+                string file = FindFile(subdirectory, fileName);
+                if (file.Contains(fileName))
+                {
+                    result = file;
+                    return result;
+                }
+            }
             return result;
         }
+       
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace StangeBombs
 {
@@ -19,26 +20,52 @@ namespace StangeBombs
         private FileReaderService _fileReaderService { get; }
         private FileSaverService _fileSaverService { get; }
 
+
+
         public string FindFile(string locationToSearch, string fileName)
         {
             var result = string.Empty;
+                try
+                {
+                    if (String.IsNullOrEmpty(locationToSearch))
+                    {
+                        Program.GetPath(out locationToSearch);
+                    }
+                    if (String.IsNullOrEmpty(fileName))
+                    {
+                        Program.GetName(out fileName);
+                    }
+                    result = _finderService.FindFile(locationToSearch, fileName);
+                    if (String.IsNullOrEmpty(result))
+                    {
+                        Program.GetName(out fileName);
+                        result = FindFile(locationToSearch, fileName);
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("Please enter the real file, what you want to search");
+                    Program.GetPath(out locationToSearch);
+                    Program.GetName(out fileName);
+                    FindFile(locationToSearch,fileName);
+                }
 
-            try
-            {
-                result = _finderService.FindFile(locationToSearch, fileName);
-            }
-            catch (NullReferenceException)
-            {
-                Console.WriteLine("Please fill all fields next time");
-            }
-            catch (UnauthorizedAccessException)
-            {
-                ;
-            }
-            catch (Exception)
-            {
-                ;
-            }
+                catch (DirectoryNotFoundException)
+                {
+                    Console.WriteLine("Please enter the real directory(path)");
+                    Program.GetPath(out locationToSearch);
+                    FindFile(locationToSearch, fileName);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    
+                }
+                catch (Exception)
+                {
+                    ;
+                }
+
+
             return result;
         }
 
