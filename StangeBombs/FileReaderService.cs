@@ -25,8 +25,21 @@ namespace StangeBombs
                     //using (FileStream fs = new FileStream(location, FileMode.Open, FileAccess.Read, FileShare.None) )
                 {
                     result = sr.ReadToEnd();
-               }
-           
+                    if (!File.Exists(location))
+                    {
+                        result = File.ReadAllText(location);
+                    }
+
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine($"The file in {location} not found.");
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Error opening file");
+            }
 
             return result;
         }
