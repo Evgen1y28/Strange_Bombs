@@ -79,7 +79,7 @@ namespace StangeBombs
             }
             catch (Exception e)
             {
-                // your code here
+                Console.WriteLine(e.Message);
             }
 
             return result;
