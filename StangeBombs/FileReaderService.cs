@@ -22,7 +22,7 @@ namespace StangeBombs
             {
 
                 using (StreamReader sr = new StreamReader(location))
-                    //using (FileStream fs = new FileStream(location, FileMode.Open, FileAccess.Read, FileShare.None) )
+
                 {
                     result = sr.ReadToEnd();
                     if (!File.Exists(location))
